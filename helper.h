@@ -18,13 +18,12 @@ namespace helper {
         return rc == 0 ? stat_buffer.st_size : -1;
     }
 
-    std::string to_string(int val) {
-        static std::string str;
-        static std::stringstream ss;
-        ss << val;
-        ss >> str;
-        ss.clear();
-        return str;
+    std::string to_string(unsigned long value) {
+        // The length of 2 ^ 64 - 1 is 20.
+        char buffer[20];
+        // "lu" is used for unsigned long.
+        std::sprintf(buffer, "%lu", value);
+        return buffer;
     }
 }
 
