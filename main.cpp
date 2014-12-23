@@ -142,6 +142,7 @@ public:
         return save(name);
     }
 
+private:
     // Attempts to save the statistics to a text file.
     // Returns true if successful, false otherwise.
     bool save(const std::string &filename) {
@@ -153,12 +154,10 @@ public:
         }
 
         // Write the header.
-        ostream << file_info["NAME"] << std::endl;
-        ostream << file_info["SIZE"] << " bytes." << std::endl;
+        ostream << generate_output_header();
 
         // Add a separator.
-        std::string separator(80, '-');
-        ostream << separator << std::endl;
+        ostream << helper::separator << std::endl;
 
         if (stat_map.size() == 0) {
             ostream << COULD_NOT_OPEN << std::endl;
@@ -171,11 +170,16 @@ public:
         }
 
         // Add a separator.
-        ostream << separator << std::endl;
+        ostream << helper::separator << std::endl;
 
         // Write update method logs.
         ostream << "Took " << (int)last_update.update_duration.count() << " ms." << std::endl;
         return true;
+    }
+
+    // Generates a string that indicates the file's name and size.
+    inline const std::string generate_output_header() {
+        return file_info["NAME"] + "\n" + file_info["SIZE"] + " bytes.\n";
     }
 
 };

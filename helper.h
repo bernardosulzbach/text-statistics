@@ -7,6 +7,8 @@
 
 namespace helper
 {
+// A line separator.
+const std::string separator = std::string(80, '-');
 
 void print_usage(char *pname)
 {
@@ -24,8 +26,7 @@ int get_file_size(const std::string &fname)
 std::string to_string(unsigned long value)
 {
     // The length of 2 ^ 64 - 1 is 20.
-    // ULONG is usually 2 ^ 32 - 1, but the code sticks to 2 ^ 64 - 1 just in case a implementation eventually
-    // has a 64-bit unsigned long.
+    // ULONG is usually 2 ^ 32 - 1, but I stick to 2 ^ 64 - 1 just in case eventually there is a 64-bit unsigned long.
     char buffer[20];
     // sprintf stores a formatted string into a C-string.
     std::sprintf(buffer, "%lu", value); // "lu" is used for unsigned long.
