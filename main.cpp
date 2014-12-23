@@ -174,7 +174,7 @@ public:
         ostream << separator << std::endl;
 
         // Write update method logs.
-        ostream << "Took " << (int)last_update.update_duration.count() << " ms.";
+        ostream << "Took " << (int)last_update.update_duration.count() << " ms." << std::endl;
         return true;
     }
 
