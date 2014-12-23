@@ -184,3 +184,8 @@ FakesAssemblies/
 
 ### Project-specific ###
 text-statistics/input/*_stats*
+
+# CB stuff
+*.layout
+*.depend
+
