@@ -10,7 +10,7 @@ namespace helper
 
 void print_usage(char *pname)
 {
-    std::cout << "\nUsage: " << pname << " <file>\n";
+    std::cout << "Usage: " << pname << " <file>\n";
 }
 
 // Returns (in bytes) the size of a file.
