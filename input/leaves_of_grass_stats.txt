@@ -1,14 +1,14 @@
 input/leaves_of_grass.txt
-775612 bytes.
+738056 bytes.
 --------------------------------------------------------------------------------
-CHARACTERS: 739106
-DIGITS: 654
-LETTERS: 557612
-LINES: 18254
-LOWERCASE: 539016
-PUNCTUATION: 29841
-SPACES: 150999
-UPPERCASE: 18596
-WORDS: 129140
+CHARACTERS: 720196
+DIGITS: 480
+LETTERS: 542387
+LINES: 17860
+LOWERCASE: 525058
+PUNCTUATION: 29248
+SPACES: 148081
+UPPERCASE: 17329
+WORDS: 126271
 --------------------------------------------------------------------------------
-Took 16 ms.
+Took 12 ms.

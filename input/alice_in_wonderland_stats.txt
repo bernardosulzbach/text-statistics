@@ -1,10 +1,10 @@
 input/alice_in_wonderland.txt
-147725 bytes.
+144389 bytes.
 --------------------------------------------------------------------------------
 CHARACTERS: 141055
 DIGITS: 0
 LETTERS: 107689
-LINES: 3335
+LINES: 3334
 LOWERCASE: 103161
 PUNCTUATION: 8319
 SPACES: 25047
