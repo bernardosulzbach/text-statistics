@@ -1,7 +1,1 @@
-After running this program against a test file I found that:
-
-Character count seems to be higher than it should be.
-
-Word count seems to be lower than expected.
-
-Investigate further.
+ipsum.txt should have 10,000 words.
