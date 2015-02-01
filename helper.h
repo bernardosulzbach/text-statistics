@@ -7,31 +7,21 @@
 
 namespace helper
 {
-// A line separator.
-const std::string separator = std::string(80, '-');
+    // A line separator.
+    const std::string separator = std::string(80, '-');
 
-void print_usage(char *pname)
-{
-    std::cout << "Usage: " << pname << " <file>\n";
-}
+    // Prints the usage of this program, given its name.
+    void print_usage(char *pname)
+    {
+        std::cout << "Usage:\n\t" << pname << " <file> " << "[OPTIONS]", "\n";
+    }
 
-// Returns (in bytes) the size of a file.
-int get_file_size(const std::string &fname)
-{
-    struct stat stat_buffer;
-    int rc = stat(fname.c_str(), &stat_buffer);
-    return rc == 0 ? stat_buffer.st_size : -1;
+    // Returns (in bytes) the size of a file.
+    int get_file_size(const std::string &fname)
+    {
+        struct stat stat_buffer;
+        int rc = stat(fname.c_str(), &stat_buffer);
+        return rc == 0 ? stat_buffer.st_size : -1;
+    }
 }
-
-std::string to_string(unsigned long value)
-{
-    // The length of 2 ^ 64 - 1 is 20.
-    // ULONG is usually 2 ^ 32 - 1, but I stick to 2 ^ 64 - 1 just in case eventually there is a 64-bit unsigned long.
-    char buffer[20];
-    // sprintf stores a formatted string into a C-string.
-    std::sprintf(buffer, "%lu", value); // "lu" is used for unsigned long.
-    return buffer;
-}
-}
-
 #endif

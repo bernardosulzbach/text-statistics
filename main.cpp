@@ -25,7 +25,7 @@ public:
 
     Statistics(const std::string &filename) {
         file_info["NAME"] = filename;
-        file_info["SIZE"] = helper::to_string(helper::get_file_size(filename));
+        file_info["SIZE"] = std::to_string(helper::get_file_size(filename));
     }
 
     void update() {
@@ -106,19 +106,19 @@ public:
         // Evaluate alpha here.
         alpha = upper + lower;
 
-        stat_map["LINES"] = helper::to_string(lines);
-        stat_map["CHARACTERS"] = helper::to_string(chars);
-        stat_map["WORDS"] = helper::to_string(words);
+        stat_map["LINES"] = std::to_string(lines);
+        stat_map["CHARACTERS"] = std::to_string(chars);
+        stat_map["WORDS"] = std::to_string(words);
 
-        stat_map["SPACES"] = helper::to_string(space);
+        stat_map["SPACES"] = std::to_string(space);
 
-        stat_map["PUNCTUATION"] = helper::to_string(punct);
+        stat_map["PUNCTUATION"] = std::to_string(punct);
 
-        stat_map["DIGITS"] = helper::to_string(digit);
+        stat_map["DIGITS"] = std::to_string(digit);
 
-        stat_map["LETTERS"] = helper::to_string(alpha);
-        stat_map["UPPERCASE"] = helper::to_string(upper);
-        stat_map["LOWERCASE"] = helper::to_string(lower);
+        stat_map["LETTERS"] = std::to_string(alpha);
+        stat_map["UPPERCASE"] = std::to_string(upper);
+        stat_map["LOWERCASE"] = std::to_string(lower);
 
         // Just stop timing at the end of the update.
         auto now = std::chrono::high_resolution_clock::now();
