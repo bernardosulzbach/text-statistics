@@ -16,6 +16,12 @@ namespace helper
         std::cout << "Usage:\n\t" << pname << " <file> " << "[OPTIONS]", "\n";
     }
 
+    // Verifies if an object is in a vector.
+    template <typename T>
+    bool in_vector(T t, std::vector<T> v) {
+        return std::find(v.begin(), v.end(), t) != v.end();
+    }
+
     // Returns (in bytes) the size of a file.
     int get_file_size(const std::string &fname)
     {
