@@ -14,4 +14,34 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="helper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="input\ipsum_stats.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="input\alice_in_wonderland.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="input\alice_in_wonderland_stats.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="input\ipsum.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="input\leaves_of_grass.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="input\leaves_of_grass_stats.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

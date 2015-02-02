@@ -64,6 +64,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="helper.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="input\alice_in_wonderland.txt" />
+    <Text Include="input\alice_in_wonderland_stats.txt" />
+    <Text Include="input\ipsum.txt" />
+    <Text Include="input\ipsum_stats.txt" />
+    <Text Include="input\leaves_of_grass.txt" />
+    <Text Include="input\leaves_of_grass_stats.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
