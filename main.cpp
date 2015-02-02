@@ -1,10 +1,13 @@
 // This program reads a text file and generates some statistics about it.
 // Started by Bernardo Sulzbach on 11/10/2014.
 
+#include <unordered_map>
+#include <algorithm>
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <chrono>
+#include <vector>
 #include <map>
 
 #include "helper.h"
@@ -28,17 +31,47 @@ public:
         file_info["SIZE"] = std::to_string(helper::get_file_size(filename));
     }
 
+    // Finds the most frequent ordered pair (e.g. "New York") of words in the
+    // text.
+    // TODO: ignore case.
+    // TODO: consider respecting punctuation: "New. York" would not be a pair.
+    void find_most_frequent_ordered_pair() {
+        std::unordered_map<std::string, unsigned> frequencies;
+        std::ifstream istream = get_ifstream();
+        if (!istream.is_open()) {
+            return;
+        }
+        // The two last words read from the file
+        std::string a;
+        std::string b;
+        // Read the first word.
+        istream >> a;
+        while (istream >> b) {
+            std::string ordered_pair = a + " " + b;
+            auto iter = frequencies.find(ordered_pair);
+            if (iter != frequencies.end()) {
+                iter->second++;
+            }
+            else {
+                frequencies.insert(std::make_pair(ordered_pair, 1));
+            }
+            a = b;
+        }
+        std::pair<std::string, unsigned> maximum;
+        for (std::pair<std::string, unsigned> pair : frequencies) {
+            if (pair.second > maximum.second) {
+                maximum = pair;
+            }
+        }
+        stat_map["MOST_FREQUENT_ORDERED_PAIR"] = maximum.first;
+    }
+
     void update() {
         // Set begin time.
-        auto update_begin = std::chrono::high_resolution_clock::now();
+        auto start_time = std::chrono::high_resolution_clock::now();
 
-        // Get the name of the file and try to open it.
-        std::string name = file_info["NAME"];
-        std::ifstream istream;
-        istream.open(name.c_str());
-
+        std::ifstream istream = get_ifstream();
         if (!istream.is_open()) {
-            std::cerr << COULD_NOT_OPEN << std::endl;
             return;
         }
 
@@ -65,17 +98,18 @@ public:
         while (getline(istream, line)) {
             lines++;
             chars += line.length();
-            for (std::string::const_iterator i = line.begin(); i != line.end(); ++i) {
+            for (auto i = line.begin(); i != line.end(); ++i) {
                 if (iswalpha(*i)) {
-                    // Do not increment alpha now.
-                    // (I suppose) it is faster to just obtain alpha from the sum of lower and upper afterwards.
+                    // Don't increment alpha now (sum lower and upper instead).
                     if (iswupper(*i)) {
                         upper++;
                     }
                     else {
                         lower++;
                     }
-                    // Hit a character, all characters are considered to be part of a word, so we set in_a_word to true.
+                    // Found a character.
+                    // All characters are considered to be part of a word, 
+                    // so set in_a_word to true.
                     in_a_word = true;
                 }
                 else if (iswspace(*i)) {
@@ -122,7 +156,8 @@ public:
 
         // Just stop timing at the end of the update.
         auto now = std::chrono::high_resolution_clock::now();
-        last_update.update_duration = std::chrono::duration<double, std::milli>(now - update_begin);
+        auto dur = std::chrono::duration<double, std::milli>(now - start_time);
+        last_update.update_duration = dur;
     }
 
     // This is the method that should be invoked to save the statistics.
@@ -164,7 +199,7 @@ private:
         }
         else {
             // Save all entries of stat_map in the format "key": "value"
-            for (std::map<std::string, std::string>::const_iterator i = stat_map.begin(); i != stat_map.end(); ++i) {
+            for (auto i = stat_map.begin(); i != stat_map.end(); ++i) {
                 ostream << i->first << ": " << i->second << std::endl;
             }
         }
@@ -182,20 +217,64 @@ private:
         return file_info["NAME"] + "\n" + file_info["SIZE"] + " bytes.\n";
     }
 
+    // Tries to get an ifstream from the provided filename.
+    // This function will print an error to cerr if the file could not be open.
+    std::ifstream get_ifstream() {
+        // Get the name of the file and try to open it.
+        std::string name = file_info["NAME"];
+        std::ifstream istream;
+        istream.open(name.c_str());
+        if (!istream.is_open()) {
+            std::cerr << COULD_NOT_OPEN << std::endl;
+        }
+        return istream;
+    }
+
 };
 
-int main(int argc, char *argv[]) {
+enum flag {
+    MOST_FREQUENT_ORDERED_PAIR,
+    UNKNOWN
+};
 
+
+// Checks if a string starts with two dashes.
+bool has_option_flag_format(std::string arg) {
+    return arg.size() >= 2 && arg.substr(0, 2) == "--";
+}
+
+// Converts a string to a flag.
+flag to_flag(std::string arg) {
+    if (arg == "--most-frequent-ordered-pair") {
+        return MOST_FREQUENT_ORDERED_PAIR;
+    }
+    return UNKNOWN;
+}
+
+int main(int argc, char *argv[]) {
+    std::vector<flag> passed_flags;
+    std::vector<std::string> files;
     if (argc == 1) {
         helper::print_usage(argv[0]);
-        return -1;
     }
     else {
         for (int i = 1; i < argc; ++i) {
-            Statistics stats(argv[i]);
-            stats.update();
-            stats.save();
+            std::string argument = argv[i];
+            if (has_option_flag_format(argument)) {
+                passed_flags.push_back(to_flag(argument));
+            }
+            else {
+                files.push_back(argv[i]);
+            }
         }
+    }
+    for (std::string file : files) {
+        Statistics stats(file);
+        stats.update();
+        if (helper::in_vector(MOST_FREQUENT_ORDERED_PAIR, passed_flags)) {
+            stats.find_most_frequent_ordered_pair();
+        }
+        stats.save();
     }
     return 0;
 }
