@@ -1,10 +1,9 @@
 #ifndef TEXT_STATISTICS_HELPER
 #define TEXT_STATISTICS_HELPER
 
-#include <string>
 #include <sstream>
+#include <string>
 #include <sys/stat.h>
-
 
 namespace helper {
     const std::string HELP_TEXT =
