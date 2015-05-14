@@ -1,14 +1,14 @@
 // This program reads a text file and generates some statistics about it.
 // Started by Bernardo Sulzbach on 11/10/2014.
 
-#include <unordered_map>
 #include <algorithm>
-#include <iostream>
-#include <fstream>
-#include <string>
 #include <chrono>
-#include <vector>
+#include <fstream>
+#include <iostream>
 #include <map>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 #include "helper.h"
 
