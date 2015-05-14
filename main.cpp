@@ -12,6 +12,7 @@
 
 #include "helper.h"
 
+const std::string HELP_FLAG = "-h";
 const std::string INPUT_DIR = "input/";
 const std::string COULD_NOT_OPEN = "Could not open the file.";
 
@@ -64,6 +65,7 @@ public:
             }
         }
         stat_map["MOST_FREQUENT_ORDERED_PAIR"] = maximum.first;
+        stat_map["MOST_FREQUENT_ORDERED_PAIR_FREQUENCY"] = std::to_string(maximum.second);
     }
 
     void update() {
@@ -237,7 +239,6 @@ enum flag {
     UNKNOWN
 };
 
-
 // Checks if a string starts with two dashes.
 bool has_option_flag_format(std::string arg) {
     return arg.size() >= 2 && arg.substr(0, 2) == "--";
@@ -256,6 +257,9 @@ int main(int argc, char *argv[]) {
     std::vector<std::string> files;
     if (argc == 1) {
         helper::print_usage(argv[0]);
+    }
+    else if (argc > 1 && argv[1] == HELP_FLAG) {
+        helper::print_help();
     }
     else {
         for (int i = 1; i < argc; ++i) {
