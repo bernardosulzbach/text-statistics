@@ -13,9 +13,18 @@ namespace helper {
     // A line separator.
     const std::string separator = std::string(80, '-');
 
+    std::string clear_name(char *bad_name) {
+        std::string name = std::string(bad_name);
+        if (name.find('\\') != std::string::npos) {
+            name = name.substr(name.find_last_of('\\') + 1);
+        }
+        return name;
+    }
+
     // Prints the usage of this program, given its name.
     void print_usage(char *pname) {
-        std::cout << "Usage:\n\t" << pname << " <file> " << "[OPTIONS]", "\n";
+        std::string name = clear_name(pname);
+        std::cout << "Usage:    " << name << " <file> [OPTIONS]\n";
     }
 
     void print_help() {
